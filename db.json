@@ -1,16 +1,12 @@
 {
-  "members": [
+  "magang": [
     {
       "id": 0,
-      "name": "Musmuliady Jahi",
-      "time": "3 Bulan",
-      "point": "50"
+      "name": "Musmuliady Jahi"
     },
     {
       "id": 1,
-      "name": "Edo",
-      "time": "3 Bulan",
-      "point": "90"
+      "name": "Edo"
     }
   ]
 }
