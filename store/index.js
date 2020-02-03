@@ -20,7 +20,7 @@ export const actions = {
     commit('setData', res.data)
   },
 
-  async add({ commit }, name) {
+  async submitData({ commit }, name) {
     const res = await axios.post('magang', { name })
     commit('addData', res.data)
   }
