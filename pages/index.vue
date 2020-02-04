@@ -4,21 +4,26 @@
 
     <div class="input-group mb-5">
       <input
+        v-model="name"
         type="text"
         class="form-control"
-        placeholder="Recipient's username"
+        placeholder="Recipient's usernames"
         aria-label="Recipient's username"
-        v-model="name"
       />
-      <div class="input-group-append">
+      <div v-bind:class="{ hidden: !isHidden }" class="input-group-append">
         <button @click="add(name)" class="btn btn-secondary" type="button">
-          Button
+          Submit
+        </button>
+      </div>
+      <div v-bind:class="{ hidden: isHidden }" class="input-group-append">
+        <button @click="update(name)" class="btn btn-secondary" type="button">
+          Update
         </button>
       </div>
     </div>
 
     <div class="row mb-5">
-      <div class="col-3 mb-4" v-for="member in members" :key="member.id">
+      <div v-for="member in members" :key="member.id" class="col-3 mb-4">
         <div class="card text-center">
           <div class="card-body">
             <h5 class="card-title">{{ member.name }}</h5>
@@ -29,6 +34,16 @@
             <p class="card-text">
               <small class="text-muted">Last updated 3 mins ago</small>
             </p>
+            <button @click="get(member.id)" type="button" class="btn btn-info">
+              Edit
+            </button>
+            <button
+              @click="remove(member.id)"
+              type="button"
+              class="btn btn-danger"
+            >
+              Hapus
+            </button>
           </div>
         </div>
       </div>
@@ -40,12 +55,33 @@
 import { mapState } from 'vuex'
 
 export default {
+  data() {
+    return {
+      name: '',
+      isHidden: true
+    }
+  },
   computed: mapState(['members']),
   methods: {
     add(name) {
       this.$store.dispatch('submitData', name)
       this.name = ''
+    },
+    remove(id) {
+      this.$store.dispatch('removeData', id)
+    },
+    get(id) {
+      this.$store.dispatch('getData', id).then((res) => {
+        this.name = res.name
+        this.isHidden = false
+      })
     }
   }
 }
 </script>
+
+<style media="screen">
+.hidden {
+  display: none;
+}
+</style>
